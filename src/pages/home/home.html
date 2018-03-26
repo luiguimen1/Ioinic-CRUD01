@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Proyecto Ionic
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h1 id="titulo">Cet Colsubsidio</h1>
+    <ion-item># Registros {{ contador }}</ion-item>
+    <ion-list>
+        <form [formGroup]="ElFormu" (ngSubmit)="capturarDatos()" novalidate>
+        <ion-item>
+            <ion-label color="primary">Ingrese su CC</ion-label>
+            <ion-input formControlName="CC" placeholder="Ingrese Numero CC" type="number"></ion-input>
+        </ion-item>
+            <!-- Mesnaje de error del campo CC-->
+        <ion-item *ngIf="ElFormu.get('CC').errors && ElFormu.get('CC').dirty">
+          <p color="danger" ion-text *ngIf="ElFormu.get('CC').hasError('required')" >LA CC es Obligatoria</p>  
+        </ion-item>
+            
+        <ion-item>
+            <ion-label color="primary">Ingrese su Nombre</ion-label>
+            <ion-input formControlName="NOM" placeholder="Ingrese su Nombre" type="text"></ion-input>
+        </ion-item>
+            <!-- Mesnaje de error del campo NOM-->
+        <ion-item *ngIf="ElFormu.get('NOM').errors && ElFormu.get('NOM').dirty">
+         
+            <p color="danger" ion-text *ngIf="ElFormu.get('NOM').hasError('required')">CAmpo requerido</p>
+        
+            <p color="danger" ion-text *ngIf="ElFormu.get('NOM').hasError('minlength')">Minimo 5 caracters</p>
+        
+            <p color="danger" ion-text *ngIf="ElFormu.get('NOM').hasError('maxlength')">Maximo 40 caracteres</p>            
+            
+        </ion-item>    
+            
+            
+        <ion-item>
+            <ion-label color="primary">Ingrese su Apellido</ion-label>
+            <ion-input formControlName="APE" placeholder="Ingrese su Apellido" type="text" ></ion-input>
+        </ion-item>
+            <!-- Mesnaje de error del campo APE-->
+            <ion-item *ngIf="ElFormu.get('APE').errors && ElFormu.get('APE').dirty">
+         
+            <p color="danger" ion-text *ngIf="ElFormu.get('APE').hasError('required')">CAmpo requerido</p>
+        
+            <p color="danger" ion-text *ngIf="ElFormu.get('APE').hasError('minlength')">Minimo 5 caracters</p>
+        
+            <p color="danger" ion-text *ngIf="ElFormu.get('APE').hasError('maxlength')">Maximo 40 caracteres</p>            
+            
+        </ion-item> 
+            
+            
+            
+        <ion-item>
+            <ion-label color="primary" stacked>URL de la foto</ion-label>
+            <ion-input  formControlName="URL" placeholder="URL de su foto" type="url" ></ion-input>
+        </ion-item>
+            <!-- Mesnaje de error del campo URL-->
+            <ion-item *ngIf="ElFormu.get('APE').errors && ElFormu.get('URL').dirty">
+         
+            <p color="danger" ion-text *ngIf="ElFormu.get('URL').hasError('required')">CAmpo requerido</p>
+                <p color="danger" ion-text *ngIf="ElFormu.get('URL').hasError('pattern')">No es un formato de url Valido</p>
+        </ion-item> 
+        
+        <ion-item>
+            <ion-label stacked>Seleccione su Genero</ion-label>
+            <ion-select  formControlName="Genero">
+                <ion-option value="f">Femenimo</ion-option>
+                <ion-option value="m">Masculino</ion-option>
+                <ion-option value="l">LGTBI</ion-option>
+            </ion-select>
+        </ion-item>
+            <!-- Mesnaje de error del campo CC-->
+           <ion-item *ngIf="ElFormu.get('Genero').errors && ElFormu.get('Genero').dirty">
+            <p color="danger" ion-text *ngIf="ElFormu.get('Genero').hasError('required')">Campo requerido</p>
+        </ion-item> 
+            <!-- Mesnaje de error del campo Perfil-->
+        <ion-item>
+            <ion-label floating>Perfil Profesional</ion-label>
+            <ion-textarea formControlName="perfil"></ion-textarea>
+        </ion-item>
+        <ion-item *ngIf="ElFormu.get('perfil').errors && ElFormu.get('perfil').dirty">
+         
+            <p color="danger" ion-text *ngIf="ElFormu.get('perfil').hasError('required')">Campo requerido</p>
+            <p color="danger" ion-text *ngIf="ElFormu.get('perfil').hasError('minlength')">Minimo 10 caracters</p>
+        
+            <p color="danger" ion-text *ngIf="ElFormu.get('perfil').hasError('maxlength')">Maximo 255caracteres</p>       
+        </ion-item> 
+                          
+        <button ion-button round color="elnuevo"  block type="submit" [disabled]="ElFormu.invalid" >Captura</button>
+        
+        
+        </form>
+    </ion-list>  
+    <ion-list>
+        <ion-item>
+        <button ion-button round color="yoyo" (click)="listaPer()">Listar datos</button>
+            <button ion-button color="secondary" (click)="Limpiar()">Limpiar Lista</button>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-item *ngFor="let per of edi">
+            <ion-avatar item-start>
+                <img [src]="per.URL" (click)="verMiPerfil(per)">
+            </ion-avatar>
+        <h4>{{ per.nombre }} {{ per.apellido }}</h4>
+        <p># de CC={{ per.cc }}</p>
+    </ion-item>
+  </ion-list>
+    
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-title>
+          Desarrollo de App<br>Lic. Luis Alvarez - 2018
+      </ion-title>
+  </ion-toolbar>
+</ion-footer>
